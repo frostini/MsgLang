@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Button, Heading } from "grommet";
 import { TabTemplate } from "../../components"
+import { ComposeMessages } from './ComposeMessages'
+import { ComposeSequences } from './ComposeSequences'
 
 export const Compose = () => {
 
@@ -10,3 +12,4 @@ export const Compose = () => {
       </Box>
   )
 };
+export {ComposeSequences, ComposeMessages}
