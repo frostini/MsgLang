@@ -17,19 +17,23 @@ const routes = [{
     label: 'configure',
     Icon: SetupIcon,
     path: "/configure",
+    link: "/configure",
     exact: true,
     component: Configure
   }, {
     navbar: true,
     label: 'compose',
     Icon: ChatOption,
-    path: "/compose",
-    component: Compose
+    path: "/compose/:slug",
+    link: "/compose/messages",
+    component: Compose,
+    exact: true
   }, {
     navbar: true,
     label: 'conduct',
     Icon: Announce,
     path: "/conduct",
+    link: "/conduct",
     component: Conduct
   }, {
     navbar: false,

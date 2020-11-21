@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Tab, Tabs, Text, Image } from 'grommet';
-import { TextHero, Modal, Table } from '../../components'
-import { composeIndexSceneData } from './data'
+import { Box } from 'grommet';
+import { TextHero, Table } from '../../components'
+import { configureColumns, tableConfig, configureData, QUERY } from './data'
 import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
 export const ComposeSequences = ({
   addNew
 }) => {
-  const {columns, data} = composeIndexSceneData
+  const { REACT_APP_TOKEN: TOKEN } = process.env
+  const [sequences, setSequences] = useState({})
+  const { columns, items } = sequences
+  
+  useEffect(() => {
+    monday.setToken(TOKEN)
+    monday.api(QUERY).then((res) => {
+      setSequences(res.data.boards[0])
+    })
+  }, []);
 
   return (
     <Box>
@@ -19,7 +28,10 @@ export const ComposeSequences = ({
         body="This is the section where content for composing sequences will soon be."
       />
       <Box pad="medium">
-        <Table columns={columns} data={data}/>
+        <Table 
+          columns={(columns && configureColumns(columns, tableConfig))}
+          data={(items && configureData(items))}
+        />
       </Box>
     </Box>
   );

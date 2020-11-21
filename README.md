@@ -1,6 +1,63 @@
+
+// create an item
+// mutation {
+//   create_item(board_id: 865039835, group_id: "topics", item_name: "succc it") {
+//     id
+//     name
+//     column_values {
+//       title
+//       text
+//       value
+//       id
+//     }
+//   }
+// }
+
+
+// item_name |  String | The new item's name.
+// board_id | !Int |The board's unique identifier.
+// group_id | String  | The group's unique identifier.
+// column_values | JSON | The column values of the new item.
+
+// update an item
+// mutation {
+//   change_multiple_column_values (
+//     board_id: 865039835,
+//     item_id: 868726141,
+//     column_values: "{\"status\": {\"index\": 1}}"
+//   ) {
+//     id
+//   }
+// }
+
+// delete an item (there is also delete_item)
+// mutation {
+//   archive_item (item_id: 20178755) {
+//     id
+//   }
+// }
+
+
+// load an item
+// query {
+//   items(ids: [865039836]) {
+//     id
+//     name
+//     column_values {
+//       title
+//       text
+//       value
+//     }
+//   }
+// }
+
+
+
+
+
 Note: To run your application manually in the future: terminate the CLI command, navigate to the folder with the project (quickstart-integrations), and run "npm run start" command. If you want to run your app in debug mode, run separately in 2 different terminal windows: npm run server-with-debugger and npm run expose
 
-
+https://community.monday.com/t/monday-api-sdk-not-authenticated-or-graphql-validation-errors/9633/9
 
 ## Overview
 This is the "Quickstart React" example Monday app. 

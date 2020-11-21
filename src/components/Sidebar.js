@@ -44,12 +44,12 @@ export class Sidebar extends Component {
           </Box>
         </RoutedButton>
         <Box flex overflow="auto">
-          {items.map(({ navbar, active, Icon, label, path }) => 
+          {items.map(({ navbar, active, Icon, label, path, link }) => 
             navbar && (
             <MenuButton
               active={active}
               Icon={Icon}
-              path={path}
+              path={link}
               label={label}
               key={label}
             />

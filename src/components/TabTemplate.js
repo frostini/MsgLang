@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Tab, Tabs, Text, Image } from 'grommet';
-import { TextHero, Modal, Table } from '../components'
-import { composeIndexSceneData } from '../scenes/compose/data'
+import {
+  Switch,
+  Route,
+  useParams,
+  useHistory
+} from "react-router-dom";
+import { Box, Button, Tab, Tabs  } from 'grommet';
+import { Modal } from '../components'
 import { ComposeMessages, ComposeSequences } from '../scenes/compose'
 import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
 export const  TabTemplate = () => {
-  const [answer, setAnswer] = useState(false);
   const [hello, setHello] = useState(false);
   const [goodbye, setGoodbye] = useState(false);
-  const {columns, data} = composeIndexSceneData
+  const [path, setPath] = useState(0)
+  const history = useHistory()
+  const {slug} = useParams();
+  
+  const tabConfig = ['messages', 'sequences']
+  
+  const setTabPath = (index) => {
+    setPath(index)
+    history.push(`/compose/${tabConfig[index]}`)
+  }
 
   const toggleState = (setState) =>  {
     setState(state => !state )
   }
-
-  useEffect(()=>{
-    monday.listen("context", res => {
-      setAnswer(res.data)
-    });
-  })
 
   const ModalButton = ({ label, onClick }) => (
     <Button 
@@ -29,27 +36,38 @@ export const  TabTemplate = () => {
       onClick={ onClick }
     />
   )
-// title, component: ,props: [{name: '', value: <Value/>}]
+
+  useEffect(()=>  {
+    setPath(tabConfig.indexOf(slug))
+  })
 
   return (
     <Box flex >
-      <Tabs 
-        fill={true}
-        overflow="auto"
-        alignControls='start'
-        alignSelf='center'
-      >
-        <Tab title='Messages'>
-          <ComposeMessages
-          addNew={<ModalButton label="New Message" onClick={() => toggleState(setHello)} />}
-          />
-        </Tab>
-        <Tab title='Sequences'>
-          <ComposeSequences 
-          addNew={<ModalButton label="New Sequences" onClick={() => toggleState(setGoodbye)} />}
-          />
-        </Tab>
-      </Tabs>
+      <Switch>
+        <Tabs 
+          activeIndex={path}
+          fill={true}
+          overflow="auto"
+          alignControls='start'
+          alignSelf='center'
+          onActive={(activeIndex) => setTabPath(activeIndex) }
+        >
+          <Tab title='Messages'>
+            <Route path="/compose/messages" >
+              <ComposeMessages
+              addNew={<ModalButton label="New Message" onClick={() => toggleState(setHello)} />}
+              />
+            </Route>
+          </Tab>
+          <Tab title='Sequences'>
+            <Route path="/compose/sequences">
+              <ComposeSequences 
+              addNew={<ModalButton label="New Sequences" onClick={() => toggleState(setGoodbye)} />}
+              />
+            </Route>
+          </Tab>
+        </Tabs>
+      </Switch>
       {hello && <Modal onClose={() => toggleState(setHello)} />}
       {goodbye && <Modal onClose={() => toggleState(setGoodbye)} />}
     </Box>
