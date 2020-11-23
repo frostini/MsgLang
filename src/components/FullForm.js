@@ -12,7 +12,15 @@ import {
 
 export const FullForm = ({leb, close,doSubmit}) => {
   const [submitted, setSubmitted] = useState(false)
+{
+  /**
+name,
+item_id
+text
+tags
 
+   */
+}
   return (
       <Box align="center">
         <Box width="medium" margin="large">

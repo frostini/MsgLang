@@ -2,15 +2,38 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { Box, Button, Image, Heading, Text  } from "grommet";
 import { PopUp, FullForm } from "../components";
+import mondaySdk from "monday-sdk-js";
+const monday = mondaySdk();
 
-
+const MUTATION = `
+mutation($name: String!) {
+  create_item(
+    board_id: 865039835,
+    group_id: "topics",
+    item_name: $name
+  ) {
+    id
+    name
+    column_values {
+      title
+      text
+      value
+      id
+    }
+  }
+}
+`
 export const Modal = ({ onClose, config }) => {
+  const { REACT_APP_TOKEN: TOKEN } = process.env
   const {title} =  config
   const handleSubmit = (values, { setSubmitting }) => {
-    // whatever submitting the form should entail
-    alert("Submitting\n" + JSON.stringify(values, null, 2));
-    setSubmitting();
-    onClose()
+    const {name} = values
+    monday.setToken(TOKEN)
+    monday.api(MUTATION, {variables: {"name": name}}).then((res) => {
+      // debugger
+      setSubmitting();
+      onClose()
+    })
   }
 
   return ( 
