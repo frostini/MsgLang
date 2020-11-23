@@ -1,32 +1,50 @@
 import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { Box, Button, Image, Heading, Text  } from "grommet";
-import { PopUp, MessageForm } from "../components";
+import { PopUp, FullForm } from "../components";
 
 
 export const Modal = ({ onClose, config }) => {
   const {title} =  config
-  const handleSubmit = () => {
-    console.log(`clicked  submit for ${title}`)
+  const handleSubmit = (values, { setSubmitting }) => {
+    // whatever submitting the form should entail
+    alert("Submitting\n" + JSON.stringify(values, null, 2));
+    setSubmitting();
     onClose()
   }
-  
+
   return ( 
-    <PopUp onClickOutside={onClose} position="center" modal>
+    <PopUp onClickOutside={onClose} position="center" modal overflow="auto">
       <Box flex align="center" justify="between">
         <ModalHeader title={title}/>
-        <MsgWizard/>
-        <ModalControl onClose={onClose} onClick={handleSubmit}/>
+        <MsgWizard onClose={onClose} doSubmit={handleSubmit}/>
+        {/* <ModalControl onClose={onClose} onClick={handleSubmit}/> */}
       </Box>
     </PopUp>
   )
 }
 
-const MsgWizard = () => (
+const MsgWizard = ({onClose, doSubmit}) => (
   <Box flex direction="row" align="center" justify="evenly" fill="horizontal">
     <Box flex basis="1/2" align="center">
       <Box width="medium">
-        <MessageForm/>
+        <FullForm 
+        doSubmit={doSubmit}
+        leb={
+          <Button primary size="small" color="brand" type="submit">
+            <Box pad="small" align="center">
+              Create New Message
+            </Box>
+          </Button>
+        }
+        close={
+          <Button plain onClick={onClose}>
+            <Box pad="small" align="center" >
+              Cancel
+            </Box>
+          </Button>
+        }
+        />
       </Box>
     </Box>
     <Box flex basis="1/2" align="center" >
