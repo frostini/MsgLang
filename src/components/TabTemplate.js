@@ -3,7 +3,8 @@ import {
   Switch,
   Route,
   useParams,
-  useHistory
+  useHistory,
+  useRouteMatch
 } from "react-router-dom";
 import { Box, Button, Tab, Tabs  } from 'grommet';
 import { Modal } from '../components'
@@ -12,23 +13,15 @@ import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
 export const  TabTemplate = () => {
-  const [hello, setHello] = useState(false);
-  const [goodbye, setGoodbye] = useState(false);
-  const [path, setPath] = useState(0)
+  const [loc, setLoc] = useState(0)
   const history = useHistory()
-  const {slug} = useParams();
-  
+  const { slug } = useParams();
+  const { url, path } = useRouteMatch()
   const tabConfig = ['messages', 'sequences']
-  
   const setTabPath = (index) => {
-    setPath(index)
+    setLoc(index)
     history.push(`/compose/${tabConfig[index]}`)
   }
-
-  const toggleState = (setState) =>  {
-    setState(state => !state )
-  }
-
   const ModalButton = ({ label, onClick }) => (
     <Button 
       primary
@@ -36,16 +29,18 @@ export const  TabTemplate = () => {
       onClick={ onClick }
     />
   )
-
   useEffect(()=>  {
-    setPath(tabConfig.indexOf(slug))
+    setLoc(tabConfig.indexOf(slug))
   })
 
   return (
     <Box flex >
       <Switch>
-        <Tabs 
-          activeIndex={path}
+        <Route path={`${path}/new`}>
+          <Modal onClose={() => history.push(url)} />
+        </Route>
+        <Tabs
+          activeIndex={loc}
           fill={true}
           overflow="auto"
           alignControls='start'
@@ -53,23 +48,21 @@ export const  TabTemplate = () => {
           onActive={(activeIndex) => setTabPath(activeIndex) }
         >
           <Tab title='Messages'>
-            <Route path="/compose/messages" >
+            <Route exact path="/compose/messages" >
               <ComposeMessages
-              addNew={<ModalButton label="New Message" onClick={() => toggleState(setHello)} />}
+              addNew={<ModalButton label="New Message" onClick={() => history.push(`${url}/new`)} />}
               />
             </Route>
           </Tab>
           <Tab title='Sequences'>
-            <Route path="/compose/sequences">
+            <Route exact path="/compose/sequences">
               <ComposeSequences 
-              addNew={<ModalButton label="New Sequences" onClick={() => toggleState(setGoodbye)} />}
+              addNew={<ModalButton label="New Sequences" onClick={() => history.push(`${url}/new`)} />}
               />
             </Route>
           </Tab>
         </Tabs>
       </Switch>
-      {hello && <Modal onClose={() => toggleState(setHello)} />}
-      {goodbye && <Modal onClose={() => toggleState(setGoodbye)} />}
     </Box>
   );
 }

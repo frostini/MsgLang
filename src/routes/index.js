@@ -27,7 +27,6 @@ const routes = [{
     path: "/compose/:slug",
     link: "/compose/messages",
     component: Compose,
-    exact: true
   }, {
     navbar: true,
     label: 'conduct',

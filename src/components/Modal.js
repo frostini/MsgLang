@@ -1,17 +1,20 @@
 import React from "react";
+import { useRouteMatch } from "react-router-dom";
 import { Box, Button, Image, Heading, Text  } from "grommet";
 import { PopUp, MessageForm } from "../components";
 
 
-export const Modal = ({ onClose }) => (
-  <PopUp onClickOutside={onClose} position="center" modal>
+export const Modal = ({ onClose }) => {
+  const { url, path } = useRouteMatch()
+  debugger
+return (  <PopUp onClickOutside={onClose} position="center" modal>
     <Box flex align="center" justify="between">
       <ModalHeader />
       <MsgWizard/>
       <ModalControl onClose={onClose}/>
     </Box>
-  </PopUp>
-);
+  </PopUp>)
+}
 
 const MsgWizard = () => (
   <Box flex direction="row" align="center" justify="evenly" fill="horizontal">
