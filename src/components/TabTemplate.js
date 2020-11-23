@@ -17,10 +17,22 @@ export const  TabTemplate = () => {
   const history = useHistory()
   const { slug } = useParams();
   const { url, path } = useRouteMatch()
-  const tabConfig = ['messages', 'sequences']
+
+  const tabFig = {
+    list: ['messages', 'sequences'],
+    messages: {
+     index:  0,
+     title: 'Messages'
+    },
+    sequences: {
+     index:  1,
+     title: 'Sequences'
+    }
+  }
+
   const setTabPath = (index) => {
     setLoc(index)
-    history.push(`/compose/${tabConfig[index]}`)
+    history.push(`/compose/${tabFig['list'][index]}`)
   }
   const ModalButton = ({ label, onClick }) => (
     <Button 
@@ -30,14 +42,17 @@ export const  TabTemplate = () => {
     />
   )
   useEffect(()=>  {
-    setLoc(tabConfig.indexOf(slug))
+    setLoc(tabFig['list'].indexOf(slug))
   })
 
   return (
     <Box flex >
       <Switch>
         <Route path={`${path}/new`}>
-          <Modal onClose={() => history.push(url)} />
+          <Modal 
+            onClose={() => history.push(url)}
+            config={tabFig[slug]}
+          />
         </Route>
         <Tabs
           activeIndex={loc}
@@ -50,14 +65,14 @@ export const  TabTemplate = () => {
           <Tab title='Messages'>
             <Route exact path="/compose/messages" >
               <ComposeMessages
-              addNew={<ModalButton label="New Message" onClick={() => history.push(`${url}/new`)} />}
+                addNew={<ModalButton label="New Message" onClick={() => history.push(`${url}/new`)} />}
               />
             </Route>
           </Tab>
           <Tab title='Sequences'>
             <Route exact path="/compose/sequences">
               <ComposeSequences 
-              addNew={<ModalButton label="New Sequences" onClick={() => history.push(`${url}/new`)} />}
+                addNew={<ModalButton label="New Sequences" onClick={() => history.push(`${url}/new`)} />}
               />
             </Route>
           </Tab>

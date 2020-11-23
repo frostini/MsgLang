@@ -4,16 +4,22 @@ import { Box, Button, Image, Heading, Text  } from "grommet";
 import { PopUp, MessageForm } from "../components";
 
 
-export const Modal = ({ onClose }) => {
-  const { url, path } = useRouteMatch()
-  debugger
-return (  <PopUp onClickOutside={onClose} position="center" modal>
-    <Box flex align="center" justify="between">
-      <ModalHeader />
-      <MsgWizard/>
-      <ModalControl onClose={onClose}/>
-    </Box>
-  </PopUp>)
+export const Modal = ({ onClose, config }) => {
+  const {title} =  config
+  const handleSubmit = () => {
+    console.log(`clicked  submit for ${title}`)
+    onClose()
+  }
+  
+  return ( 
+    <PopUp onClickOutside={onClose} position="center" modal>
+      <Box flex align="center" justify="between">
+        <ModalHeader title={title}/>
+        <MsgWizard/>
+        <ModalControl onClose={onClose} onClick={handleSubmit}/>
+      </Box>
+    </PopUp>
+  )
 }
 
 const MsgWizard = () => (
@@ -31,17 +37,17 @@ const MsgWizard = () => (
     </Box>
   </Box>
 )
-const ModalHeader = () => (
+const ModalHeader = ({title}) => (
   <Box margin="small" direction="row" justify="center" align="center">
     <Heading margin="small" level="2">
-      Messages
+      {title}
     </Heading>
     <Text margin="small" size="xxlarge" weight="200" level="2">
       New
     </Text>
   </Box>
 )
-const ModalControl  = ({onClose}) => (
+const ModalControl  = ({onClose, onClick}) => (
   <Box  direction="row" pad="large">
     <Box pad="small">
       <Button plain onClick={onClose}>
@@ -51,7 +57,7 @@ const ModalControl  = ({onClose}) => (
       </Button>
     </Box>
     <Box pad="small" >
-      <Button primary size="small" color="brand" onClick={onClose}>
+      <Button primary size="small" color="brand" onClick={onClick}>
         <Box pad="small" align="center">
           Create New Message
         </Box>
