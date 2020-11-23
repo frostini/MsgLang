@@ -13,7 +13,7 @@ import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
 export const  TabTemplate = () => {
-  const [loc, setLoc] = useState(0)
+  const [tabIdx, setTabIdx] = useState(0)
   const history = useHistory()
   const { slug } = useParams();
   const { url, path } = useRouteMatch()
@@ -31,7 +31,7 @@ export const  TabTemplate = () => {
   }
 
   const setTabPath = (index) => {
-    setLoc(index)
+    setTabIdx(index)
     history.push(`/compose/${tabFig['list'][index]}`)
   }
   const ModalButton = ({ label, onClick }) => (
@@ -42,7 +42,7 @@ export const  TabTemplate = () => {
     />
   )
   useEffect(()=>  {
-    setLoc(tabFig['list'].indexOf(slug))
+    setTabIdx(tabFig['list'].indexOf(slug))
   })
 
   return (
@@ -55,7 +55,7 @@ export const  TabTemplate = () => {
           />
         </Route>
         <Tabs
-          activeIndex={loc}
+          activeIndex={tabIdx}
           fill={true}
           overflow="auto"
           alignControls='start'
