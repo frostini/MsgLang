@@ -16,17 +16,17 @@ export const TwilioForm = () => {
   const testIdOnClick = () => {
     const dataa = { from: '+16193736452', phone: '+16193736451', message: 'CORssSs MF' };
 
-fetch('https://batch-send-1358.twil.io/welcome', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  mode:'cors',
-  body: JSON.stringify(dataa)
-}).then(async r => console.log(await r.json()))
-  .catch((error) => {
-    debugger
-      console.error('Error:', error);
+    fetch('https://batch-send-1358.twil.io/welcome', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode:'cors',
+      body: JSON.stringify(dataa)
+    })
+    .then(async r => console.log(await r.json()))
+    .catch((error) => {
+        console.error('Error:', error);
     });
 }
 

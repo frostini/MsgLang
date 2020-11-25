@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import {
   Box,
@@ -9,56 +9,50 @@ import {
   TextArea,
   TextInput
 } from "grommet";
+import mondaySdk from "monday-sdk-js";
+const monday = mondaySdk();
+
+const useStateWithLocalStorage = localStorageKey => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(localStorageKey) || ''
+  );
+ 
+  React.useEffect(() => {
+    localStorage.setItem(localStorageKey, value);
+  }, [value]);
+ 
+  return [value, setValue];
+};
 
 export const TestForm = () => {
   const [submitted, setSubmitted] = useState(false)
-{
-  /**
-name,
-item_id
-text
-tags
-        leb={
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-        }
-        close={
-          <Button plain onClick={onClose}>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-        }
-   */
-}
-const handleSubmit = (values, { setSubmitting }) => {
-  // const {name} = values
-  // monday.setToken(TOKEN)
-  // monday.api(MUTATION, {variables: {"name": name}}).then((res) => {
-    debugger
+  const [session, setSession] = useStateWithLocalStorage(
+    "userSession"
+  );
+
+  const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting();
-
-    // onClose()
+    setSession(JSON.stringify(values));
   }
-
+  let [initialValues, setInitialValues] = useState(
+    session ? JSON.parse(session) : { name: '', email: '', phone: '' }
+  )
 
   return (
-      <Box align="center">
-        <Box width="medium" margin="large">
+      <Box>
+        <Box width="medium" margin="medium">
           <Formik
-            initialValues={{ name: '', password: '', boardId: '334343' }}
+            initialValues={initialValues}
             validate={values => {
               const errors = {};
               if (!values.name) {
                 errors.name = "required";
               }
-              if (!values.employeeId) {
-                errors.employeeId = "required";
-              } else if (!values.employeeId.match(/^[0-9]+$/)) {
-                errors.employeeId = "numeric only";
+              if (!values.phone) {
+                errors.phone = "required";
+              }
+              if (!values.email) {
+                errors.email = "required";
               }
               return errors;
             }}
@@ -95,25 +89,10 @@ const handleSubmit = (values, { setSubmitting }) => {
                     onChange={handleChange}
                   />
                 </FormField>
-                <FormField label="Employee ID" error={errors.employeeId}>
+                <FormField label="Phone Number" error={errors.phone}>
                   <TextInput
-                    name="employeeId"
-                    value={values.employeeId || ""}
-                    onChange={handleChange}
-                  />
-                </FormField>
-                <FormField label="Size" error={errors.size}>
-                  <Select
-                    name="size"
-                    options={["small", "medium", "large"]}
-                    value={values.size || ""}
-                    onChange={event => setFieldValue("size", event.value)}
-                  />
-                </FormField>
-                <FormField label="Comments" error={errors.comments}>
-                  <TextArea
-                    name="comments"
-                    value={values.comments || ""}
+                    name="phone"
+                    value={values.phone || ""}
                     onChange={handleChange}
                   />
                 </FormField>
@@ -123,17 +102,16 @@ const handleSubmit = (values, { setSubmitting }) => {
                   direction="row"
                   justify="between"
                 >
-          <Button plain>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-
+                  <Button plain>
+                    <Box pad="small" align="center" >
+                      Cancel
+                    </Box>
+                  </Button>
+                  <Button primary size="small" color="brand" type="submit">
+                    <Box pad="small" align="center">
+                      Update Test User
+                    </Box>
+                  </Button>
                 </Box>
               </form>
             )}
