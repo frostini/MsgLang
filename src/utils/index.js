@@ -1,7 +1,7 @@
 import React from "react";
 export const useStateWithLocalStorage = localStorageKey => {
   const [value, setValue] = React.useState(
-    localStorage.getItem(localStorageKey) || ''
+    localStorage.getItem(localStorageKey)
   );
  
   React.useEffect(() => {

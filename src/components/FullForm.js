@@ -10,19 +10,16 @@ import {
   TextArea,
   TextInput
 } from "grommet";
+import { userSession } from "../routes";
 
 export const FullForm = ({onClose}) => {
   const [text, setText] = useState(false)
   const [name, setName] = useState(false)
 
 const interpol= (text) => {
+  const userProfile = JSON.parse(localStorage.getItem("userSession"))
   
-  const test = {
-    'name':'Marlon',
-    'email': 'marlon@email.com'
-  };
-  
-  let display = text && text.replace(/\{(.*?)\}/g, m => test[(m.substring(1, m.length-1))]);
+  let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
   return display
 
 }
