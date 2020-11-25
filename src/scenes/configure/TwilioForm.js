@@ -14,7 +14,7 @@ export const TwilioForm = () => {
   const [submitted, setSubmitted] = useState(false)
   
   const testIdOnClick = () => {
-    const dataa = { phone: '+16193736451', message: 'CORssSs MF' };
+    const dataa = { from: '+16193736452', phone: '+16193736451', message: 'CORssSs MF' };
 
 fetch('https://batch-send-1358.twil.io/welcome', {
   method: 'POST',
@@ -28,73 +28,20 @@ fetch('https://batch-send-1358.twil.io/welcome', {
     debugger
       console.error('Error:', error);
     });
-
 }
 
   useEffect(() => {
     // testIdOnClick()
- 
   }, [])
-  {
-  /**
-RESPONSE OBJECT BIYOTCH
-{
-  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "api_version": "2010-04-01",
-  "body": "This is the ship that made the Kessel Run in fourteen parsecs?",
-  "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
-  "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
-  "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
-  "direction": "outbound-api",
-  "error_code": null,
-  "error_message": null,
-  "from": "+15017122661",
-  "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "num_media": "0",
-  "num_segments": "1",
-  "price": null,
-  "price_unit": null,
-  "sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "status": "sent",
-  "subresource_uris": {
-    "media": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json"
-  },
-  "to": "+15558675310",
-  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"
-}
 
-
-
-name,
-item_id
-text
-tags
-        leb={
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-        }
-        close={
-          <Button plain onClick={onClose}>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-        }
-   */
-}
 const handleSubmit = (values, { setSubmitting }) => {
   // const {name} = values
   // monday.setToken(TOKEN)
   // monday.api(MUTATION, {variables: {"name": name}}).then((res) => {
     debugger
     setSubmitting();
-
     // onClose()
   }
-
 
   return (
       <Box pad={{left: 'medium'}}>
@@ -192,4 +139,56 @@ const handleSubmit = (values, { setSubmitting }) => {
         </Box>
       </Box>
   );
+}
+
+
+{
+  /**
+RESPONSE OBJECT BIYOTCH
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "api_version": "2010-04-01",
+  "body": "This is the ship that made the Kessel Run in fourteen parsecs?",
+  "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
+  "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
+  "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
+  "direction": "outbound-api",
+  "error_code": null,
+  "error_message": null,
+  "from": "+15017122661",
+  "messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "num_media": "0",
+  "num_segments": "1",
+  "price": null,
+  "price_unit": null,
+  "sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "status": "sent",
+  "subresource_uris": {
+    "media": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json"
+  },
+  "to": "+15558675310",
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"
+}
+
+
+
+name,
+item_id
+text
+tags
+        leb={
+          <Button primary size="small" color="brand" type="submit">
+            <Box pad="small" align="center">
+              Create New Message
+            </Box>
+          </Button>
+        }
+        close={
+          <Button plain onClick={onClose}>
+            <Box pad="small" align="center" >
+              Cancel
+            </Box>
+          </Button>
+        }
+   */
 }
