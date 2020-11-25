@@ -6,11 +6,12 @@ import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
 const MUTATION = `
-mutation($name: String!) {
+mutation($name: String!, $column_values: JSON!) {
   create_item(
     board_id: 865039835,
     group_id: "topics",
-    item_name: $name
+    item_name: $name,
+    column_values: $column_values,
   ) {
     id
     name
@@ -27,10 +28,15 @@ export const Modal = ({ onClose, config }) => {
   const { REACT_APP_TOKEN: TOKEN } = process.env
   const {title} =  config
   const handleSubmit = (values, { setSubmitting }) => {
-    const {name} = values
+    const {name,text} = values
     monday.setToken(TOKEN)
-    monday.api(MUTATION, {variables: {"name": name}}).then((res) => {
-      // debugger
+    const column_values = (({text}) => ({text}))(values)
+    monday.api(MUTATION, {
+      variables: {
+        "name": name,
+        "column_values": JSON.stringify(column_values)
+      }
+    }).then((res) => {
       setSubmitting();
       onClose()
     })

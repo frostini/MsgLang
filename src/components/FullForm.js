@@ -25,16 +25,14 @@ tags
       <Box align="center">
         <Box width="medium" margin="large">
           <Formik
-            initialValues={{ name: '', password: '', boardId: '334343' }}
+            initialValues={{ name: '', text: '', boardId: '334343' }}
             validate={values => {
               const errors = {};
               if (!values.name) {
                 errors.name = "required";
               }
-              if (!values.employeeId) {
-                errors.employeeId = "required";
-              } else if (!values.employeeId.match(/^[0-9]+$/)) {
-                errors.employeeId = "numeric only";
+              if (!values.text) {
+                errors.text = "required";
               }
               return errors;
             }}
@@ -63,33 +61,10 @@ tags
                     onChange={handleChange}
                   />
                 </FormField>
-                <FormField label="Email" error={errors.email}>
-                  <TextInput
-                    name="email"
-                    type="email"
-                    value={values.email || ""}
-                    onChange={handleChange}
-                  />
-                </FormField>
-                <FormField label="Employee ID" error={errors.employeeId}>
-                  <TextInput
-                    name="employeeId"
-                    value={values.employeeId || ""}
-                    onChange={handleChange}
-                  />
-                </FormField>
-                <FormField label="Size" error={errors.size}>
-                  <Select
-                    name="size"
-                    options={["small", "medium", "large"]}
-                    value={values.size || ""}
-                    onChange={event => setFieldValue("size", event.value)}
-                  />
-                </FormField>
-                <FormField label="Comments" error={errors.comments}>
+                <FormField label="SMS Text" error={errors.text}>
                   <TextArea
-                    name="comments"
-                    value={values.comments || ""}
+                    name="text"
+                    value={values.text || ""}
                     onChange={handleChange}
                   />
                 </FormField>

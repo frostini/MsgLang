@@ -1,17 +1,17 @@
 
 // create an item
-// mutation {
-//   create_item(board_id: 865039835, group_id: "topics", item_name: "succc it") {
-//     id
-//     name
-//     column_values {
-//       title
-//       text
-//       value
-//       id
-//     }
-//   }
-// }
+mutation {
+  create_item(board_id: 865039835, group_id: "topics", item_name: "succc it") {
+    id
+    name
+    column_values {
+      title
+      text
+      value
+      id
+    }
+  }
+}
 
 
 // item_name |  String | The new item's name.
