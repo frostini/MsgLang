@@ -55,33 +55,9 @@ export const Modal = ({ onClose, config }) => {
 
 const MsgWizard = ({onClose, doSubmit}) => (
   <Box flex direction="row" align="center" justify="evenly" fill="horizontal">
-    <Box flex basis="1/2" align="center">
-      <Box width="medium">
         <FullForm 
-        doSubmit={doSubmit}
-        leb={
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-        }
-        close={
-          <Button plain onClick={onClose}>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-        }
+          onClose={onClose}
         />
-      </Box>
-    </Box>
-    <Box flex basis="1/2" align="center" >
-      <Box background="light-2" width="medium" height="medium">
-        <Text>Hello <b>Marlon</b></Text>
-      </Box>
-      <Text>Message Preview</Text>
-    </Box>
   </Box>
 )
 const ModalHeader = ({title}) => (
