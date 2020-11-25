@@ -10,25 +10,12 @@ import {
   TextInput
 } from "grommet";
 import mondaySdk from "monday-sdk-js";
+import  {useStateWithLocalStorage} from '../../utils'
 const monday = mondaySdk();
-
-const useStateWithLocalStorage = localStorageKey => {
-  const [value, setValue] = React.useState(
-    localStorage.getItem(localStorageKey) || ''
-  );
- 
-  React.useEffect(() => {
-    localStorage.setItem(localStorageKey, value);
-  }, [value]);
- 
-  return [value, setValue];
-};
 
 export const TestForm = () => {
   const [submitted, setSubmitted] = useState(false)
-  const [session, setSession] = useStateWithLocalStorage(
-    "userSession"
-  );
+  const [session, setSession] = useStateWithLocalStorage("userSession");
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting();
@@ -102,12 +89,7 @@ export const TestForm = () => {
                   direction="row"
                   justify="between"
                 >
-                  <Button plain>
-                    <Box pad="small" align="center" >
-                      Cancel
-                    </Box>
-                  </Button>
-                  <Button primary size="small" color="brand" type="submit">
+                  <Button pad="small" primary size="large" color="brand" type="submit">
                     <Box pad="small" align="center">
                       Update Test User
                     </Box>

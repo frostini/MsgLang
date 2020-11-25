@@ -9,10 +9,12 @@ import {
   TextArea,
   TextInput
 } from "grommet";
+import  {useStateWithLocalStorage} from '../../utils'
 
 export const TwilioForm = () => {
   const [submitted, setSubmitted] = useState(false)
-  
+  const [session, setSession] = useStateWithLocalStorage("twilioSession");
+
   const testIdOnClick = () => {
     const dataa = { from: '+16193736452', phone: '+16193736451', message: 'CORssSs MF' };
 
@@ -35,29 +37,33 @@ export const TwilioForm = () => {
   }, [])
 
 const handleSubmit = (values, { setSubmitting }) => {
-  // const {name} = values
-  // monday.setToken(TOKEN)
-  // monday.api(MUTATION, {variables: {"name": name}}).then((res) => {
-    debugger
     setSubmitting();
-    // onClose()
+    setSession(JSON.stringify(values));
   }
+  let [initialValues, setInitialValues] = useState(
+    session ? JSON.parse(session) : { token: '', sid: '', phone: '' }
+  )
+
 
   return (
       <Box pad={{left: 'medium'}}>
         <Box width="medium">
           <Formik
-            initialValues={{ name: '', password: '', boardId: '334343' }}
+            initialValues={initialValues}
             validate={values => {
               const errors = {};
-              if (!values.name) {
-                errors.name = "required";
+              if (!values.token) {
+                errors.token = "required";
               }
-              if (!values.employeeId) {
-                errors.employeeId = "required";
-              } else if (!values.employeeId.match(/^[0-9]+$/)) {
-                errors.employeeId = "numeric only";
-              }
+              if (!values.sid) {
+                errors.sid = "required";
+              } 
+              if (!values.phone) {
+                errors.phone = "required";
+              } 
+              // else if (!values.employeeId.match(/^[0-9]+$/)) {
+              //   errors.employeeId = "numeric only";
+              // }
               return errors;
             }}
             validateOnBlur={submitted}
@@ -78,40 +84,24 @@ const handleSubmit = (values, { setSubmitting }) => {
                   handleSubmit();
                 }}
               >
-                <FormField label="Name" error={errors.name}>
+                <FormField label="Twilio API Token" error={errors.token}>
                   <TextInput
-                    name="name"
-                    value={values.name || ""}
+                    name="token"
+                    value={values.token || ""}
                     onChange={handleChange}
                   />
                 </FormField>
-                <FormField label="Email" error={errors.email}>
+                <FormField label="Twilio SID" error={errors.sid}>
                   <TextInput
-                    name="email"
-                    type="email"
-                    value={values.email || ""}
+                    name="sid"
+                    value={values.sid || ""}
                     onChange={handleChange}
                   />
                 </FormField>
-                <FormField label="Employee ID" error={errors.employeeId}>
+                <FormField label="Send From Phone Number" error={errors.phone}>
                   <TextInput
-                    name="employeeId"
-                    value={values.employeeId || ""}
-                    onChange={handleChange}
-                  />
-                </FormField>
-                <FormField label="Size" error={errors.size}>
-                  <Select
-                    name="size"
-                    options={["small", "medium", "large"]}
-                    value={values.size || ""}
-                    onChange={event => setFieldValue("size", event.value)}
-                  />
-                </FormField>
-                <FormField label="Comments" error={errors.comments}>
-                  <TextArea
-                    name="comments"
-                    value={values.comments || ""}
+                    name="phone"
+                    value={values.phone || ""}
                     onChange={handleChange}
                   />
                 </FormField>
@@ -121,17 +111,11 @@ const handleSubmit = (values, { setSubmitting }) => {
                   direction="row"
                   justify="between"
                 >
-          <Button plain>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-
+                  <Button primary size="small" color="brand" type="submit">
+                    <Box pad="small" align="center">
+                      Create New Message
+                    </Box>
+                  </Button>
                 </Box>
               </form>
             )}
