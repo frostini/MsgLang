@@ -1,52 +1,56 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
 import {
   Box,
   Button,
   FormField,
-  Heading,
-  Select,
   Text,
   TextArea,
   TextInput
 } from "grommet";
-import { userSession } from "../routes";
+import mondaySdk from "monday-sdk-js";
+const monday = mondaySdk();
+const MUTATIONS = `
+  mutation($name: String!, $column_values: JSON!) {
+    create_item(
+      board_id: 865039835,
+      group_id: "topics",
+      item_name: $name,
+      column_values: $column_values,
+    ) {
+      id
+      name
+      column_values {
+        title
+        text
+        value
+        id
+      }
+    }
+  }
+`
 
 export const FullForm = ({onClose}) => {
   const [text, setText] = useState(false)
   const [name, setName] = useState(false)
+  const { REACT_APP_TOKEN: TOKEN } = process.env
 
-const interpol= (text) => {
-  const userProfile = JSON.parse(localStorage.getItem("userSession"))
-  
-  let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
-  return display
-
-}
-  {
-  /**
-name,
-item_id
-text
-tags
-
-  const handleSubmit = (values, { setSubmitting }) => {
-    const {name,text} = values
+  const interpol= (text) => {
+    const userProfile = JSON.parse(localStorage.getItem("userSession"))  
+    let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
+    return display
+  }
+  const handleSubmit = () => {
     monday.setToken(TOKEN)
-    const column_values = (({text}) => ({text}))(values)
-    monday.api(MUTATION, {
+    monday.api(MUTATIONS, {
       variables: {
         "name": name,
-        "column_values": JSON.stringify(column_values)
+        "column_values": JSON.stringify({text})
       }
     }).then((res) => {
-      setSubmitting();
       onClose()
     })
   }
 
-   */
-}
   return (
       <Box flex direction="row" align="center" justify="evenly" fill="horizontal">
         <Box flex basis="1/2" align="center">
@@ -70,7 +74,7 @@ tags
             direction="row"
             justify="between"
           >
-            <Button primary size="small" color="brand" type="submit">
+            <Button onClick={() => handleSubmit()} primary size="small" color="brand" type="submit">
               <Box pad="small" align="center">
                 Create New Message
               </Box>
