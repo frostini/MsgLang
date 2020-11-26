@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Box, Heading, Select } from "grommet";
+import { Box, Heading, Select, Text } from "grommet";
 import mondaySdk from "monday-sdk-js";
 import { configureData, MESSAGES_QUERY } from '../compose/data'
 const monday = mondaySdk();
@@ -53,7 +53,19 @@ const [message, setMessage] = useState("");
 const [columns, setColumns] = useState(undefined);
 const [phoneColumn, setPhoneColumn] = useState(undefined);
 const [messages, setMessages] = useState([])
+const showOption = (collection, option, value) =>  {
+  
+  const vals = collection.find(o => o[option] === value)
+  const {name, text} = vals
+  // debugger
+  return  (
+    <Box direction="column">
+      <Text>{name}</Text>
+      <Text>{text || 'ERROR. no message body.'}</Text>
+    </Box>
+  )
 
+}
 return(
 <Box fill align="center" justify="center">
     <Heading>Conduct Index</Heading>
@@ -64,7 +76,9 @@ return(
         value={message}
         multiple={false}
         onChange={({value}) => setMessage(value)}
-      />
+      >
+        {option => showOption(messages, 'name', option)}
+      </Select>
     </Box>
     <Box>
       <Select
@@ -74,6 +88,7 @@ return(
         multiple={false}
         onChange={handleSelect}
       />
+      
     </Box>
     { columns &&
       <Box>
