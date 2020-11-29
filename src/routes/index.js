@@ -29,7 +29,7 @@ const routes = [{
     component: Compose,
   }, {
     navbar: true,
-    label: 'conduct',
+    label: 'campaigns',
     Icon: Announce,
     path: "/conduct",
     link: "/conduct",

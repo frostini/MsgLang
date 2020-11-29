@@ -56,13 +56,13 @@ export class Sidebar extends Component {
           )
           )}
         </Box>
-        {userSession && (
+        {/* {userSession && (
           <UserMenu
             alignSelf="center"
             user={userSession.user}
             items={userSession.items}
           />
-        )}
+        )} */}
       </Box>
     );
   }

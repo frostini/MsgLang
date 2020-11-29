@@ -21,7 +21,7 @@ export const theme = deepMerge(grommet, {
     },
     size: {
       avatar: "36px",
-      sidebar: "60px"
+      sidebar: "65px"
     }
   }
 });

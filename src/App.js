@@ -25,7 +25,7 @@ class App extends Component {
       <Box direction="row" fill>
         <Sidebar
           appIcon={<Brand />}
-          appName="msglang"
+          appName="MsgLang"
           items={routes}
           userSession={userSession}
         />
