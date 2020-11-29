@@ -57,8 +57,7 @@ const enrich = (coll) => {
   const messageToSend = messages.find(o => o['name'] === message)
   return coll.map(el=> {
    return ((el) => ({ ...el, interpolatedMessage: addInterpolatedMessage(messageToSend['text'], el) }))(el)
-  })
-  
+  })  
 }
 
 const getMessageData = (phoneValue) => {
@@ -85,10 +84,15 @@ const SimpleTemplate = (props) => {
   const {name, phone, interpolatedMessage} = props
 
   return(
-    <Box direction="column" pad="small">
-      <Text>{name}</Text>
-      <Text>{phone}</Text>
-      <Text>{interpolatedMessage}</Text>
+    <Box pad="small" direction="column">
+      <Box pad="small" round={true} background="light-2" direction="column" margin={{bottom: 'small'}}>
+        <Text  pad={{horizontal:'small'}}>{interpolatedMessage}</Text>
+      </Box>
+      <Box pad={{bottom: 'small'}} direction="row">
+        <Text >{name}</Text>
+        <Text weight="bold" margin={{horizontal: "small"}}>|</Text>
+        <Text >{phone}</Text>
+      </Box>
     </Box>
   )
 }
@@ -168,10 +172,10 @@ const SimpleTemplate = (props) => {
         columns && phoneColumn && smsMessages &&
         (<Box>
           {smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)}
-          <Box>
-          <Button onClick={() => sendSmS(smsMessages)} primary size="small" color="brand" type="submit">
+          <Box size="small">
+          <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
               <Box pad="small" align="center">
-                Create New Message
+                Create Campaign
               </Box>
             </Button>
           </Box>
