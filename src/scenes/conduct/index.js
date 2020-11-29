@@ -10,6 +10,7 @@ export const Conduct = () => {
   const [message, setMessage] = useState("");
   const [columns, setColumns] = useState(undefined);
   const [phoneColumn, setPhoneColumn] = useState(undefined);
+  const [showButton, setShowButton] = useState(undefined);
   const [messages, setMessages] = useState([])
   const [boards, setBoards] = useState([])
   const [smsMessages, setSmsMessages] = useState([])
@@ -133,8 +134,10 @@ const SimpleTemplate = (props) => {
   }
 
   return(
-    <Box fill align="start" pad="small">
+    <Box align="center" pad="small">
       <Heading level={2}>Create a new Campaign</Heading>
+<Box flex direction="row" align="center" justify="evenly" fill="horizontal">
+      <Box flex basis="1/2" align="center">
       <Box pad="small">
         <Text>Select Message</Text>
         <Select
@@ -168,18 +171,24 @@ const SimpleTemplate = (props) => {
             />
         </Box>
       }
+      </Box>
       {
         columns && phoneColumn && smsMessages &&
-        (<Box>
-          {smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)}
-          <Box size="small">
-          <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
-              <Box pad="small" align="center">
-                Create Campaign
-              </Box>
-            </Button>
-          </Box>
+        (<Box flex basis="1/2" align="center">
+          {
+          smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)
+
+          }
         </Box>)
+      }
+      </Box>
+      { columns && phoneColumn && smsMessages && <Box pad="small" size="small">
+        <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
+          <Box pad="small" align="center">
+            Create Campaign
+          </Box>
+        </Button>
+      </Box>
       }
     </Box>
   ) 
