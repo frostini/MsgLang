@@ -11,9 +11,7 @@ import {
 import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 
-export const MessagesIndexScene = ({
-  addNew
-}) => {
+export const MessagesIndexScene = () => {
 
   const history = useHistory()
   const { url, path } = useRouteMatch()
@@ -39,24 +37,6 @@ export const MessagesIndexScene = ({
 
   return (
     <Switch>
-      <Route exact path={`${path}/new`}>
-        <Modal 
-          onClose={() => history.push(url)}
-          config={{title: 'Messages'}}
-        />
-      </Route>
-      <Route path={`${path}/:id/edit`}>
-        <EditModal 
-          onClose={() => history.push(url)}
-          config={{title: 'Edit'}}
-        />
-      </Route>
-      <Route path={`${path}/:id/delete`}>
-        <DeleteModal
-          onClose={() => history.push(url)}
-          config={{title: 'Delete'}}
-        />
-      </Route>
       <Route exact path="/compose/messages" >
         <Box>
           <TextHero

@@ -59,6 +59,7 @@ export const TwilioForm = () => {
               >
                 <FormField label="Twilio API Token" error={errors.token}>
                   <TextInput
+                    type="password"
                     name="token"
                     value={values.token || ""}
                     onChange={handleChange}
@@ -66,6 +67,7 @@ export const TwilioForm = () => {
                 </FormField>
                 <FormField label="Twilio SID" error={errors.sid}>
                   <TextInput
+                    type="password"
                     name="sid"
                     value={values.sid || ""}
                     onChange={handleChange}
