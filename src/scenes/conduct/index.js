@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Box, Heading, Select, Text } from "grommet";
+import { Box, Button, Heading, Select, Text } from "grommet";
 import mondaySdk from "monday-sdk-js";
 import { configureData, MESSAGES_QUERY, CONTACT_QUERY } from '../compose/data'
 const monday = mondaySdk();
@@ -28,6 +28,38 @@ export const Conduct = () => {
     }
   }
   `
+  const sendSmS = (smsMessages) => {
+    const body = JSON.stringify({
+      messageList: smsMessages 
+    })
+    
+    fetch('https://batch-send-1358.twil.io/bulk', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode:'cors',
+      body: body
+    })
+    .then(async r => {
+      console.log(await r.json())
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+const addInterpolatedMessage = (text, values) => (
+  text.replace(/\{(.*?)\}/g, m => values[(m.substring(1, m.length-1))])
+)
+
+const enrich = (coll) => {
+  const messageToSend = messages.find(o => o['name'] === message)
+  return coll.map(el=> {
+   return ((el) => ({ ...el, interpolatedMessage: addInterpolatedMessage(messageToSend['text'], el) }))(el)
+  })
+  
+}
 
 const getMessageData = (phoneValue) => {
   setPhoneColumn(phoneValue)
@@ -40,26 +72,23 @@ const getMessageData = (phoneValue) => {
     }
   }).then((res) => { 
     setSmsMessages(
-      configureData(
-        res.data.boards[0].items
+      enrich(
+        configureData(
+          res.data.boards[0].items
+        )
       )
     )
   })
 }
 
 const SimpleTemplate = (props) => {
-  const {name, phone} = props
+  const {name, phone, interpolatedMessage} = props
 
-  const interpol= (text) => {
-    let display = text.replace(/\{(.*?)\}/g, m => props[(m.substring(1, m.length-1))]);
-    return display
-  }
-  const valueForInter = messages.find(o => o['name'] === message)
   return(
     <Box direction="column" pad="small">
       <Text>{name}</Text>
       <Text>{phone}</Text>
-      <Text>{interpol(valueForInter['text'])}</Text>
+      <Text>{interpolatedMessage}</Text>
     </Box>
   )
 }
@@ -137,17 +166,17 @@ const SimpleTemplate = (props) => {
       }
       {
         columns && phoneColumn && smsMessages &&
-        smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)
+        (<Box>
+          {smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)}
+          <Box>
+          <Button onClick={() => sendSmS(smsMessages)} primary size="small" color="brand" type="submit">
+              <Box pad="small" align="center">
+                Create New Message
+              </Box>
+            </Button>
+          </Box>
+        </Box>)
       }
     </Box>
   ) 
 }
-      /*
-add send  messages button
-scroll to bottom  of ui element to see send
-
-prepare args/values from list for twilio message value
-create handler to send message to twilio
-
-      
-      */
