@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,6 +7,8 @@ import {
   TextArea,
   TextInput
 } from "grommet";
+import { useParams } from "react-router-dom";
+import { MESSAGE_QUERY, MESSAGE_UPDATE, configureItem } from  '../scenes/compose/data'
 import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 const MUTATIONS = `
@@ -29,22 +31,41 @@ const MUTATIONS = `
   }
 `
 
-export const FullForm = ({onClose}) => {
-  const [text, setText] = useState(false)
-  const [name, setName] = useState(false)
+export const LoadedForm = ({onClose}) => {
+  const {id} = useParams()
+  const [item, setItem] = useState(undefined)
+  const [text, setText] = useState(undefined)
+  const [name, setName] = useState(undefined)
   const { REACT_APP_TOKEN: TOKEN } = process.env
 
-  const interpol= (text) => {
+  useEffect(() => {
+    monday.setToken(TOKEN)
+    monday.api(MESSAGE_QUERY, {
+      variables: {
+        "ids": +id
+      }
+    }).then((res) => {
+      const message  = configureItem(res.data.items)[0]
+      setItem(message)
+      setName(message['name'])
+      setText(message['text'])
+    })
+  }, [])
+  const interpol = (text) => {
     const userProfile = JSON.parse(localStorage.getItem("userSession"))  
     let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
     return display
   }
   const handleSubmit = () => {
     monday.setToken(TOKEN)
-    monday.api(MUTATIONS, {
+    monday.api(MESSAGE_UPDATE, {
       variables: {
-        "name": name,
-        "column_values": JSON.stringify({text})
+        "board_id": +item.board_id,
+        "item_id": +item.id,
+        "column_values": JSON.stringify({
+          "name": name,
+          "text": text,
+        })
       }
     }).then((res) => {
       onClose()
@@ -57,14 +78,14 @@ export const FullForm = ({onClose}) => {
           <FormField label="Name">
             <TextInput
               name="name"
-              value={name || ""}
+              value={name}
               onChange={event => setName(event.target.value)}
             />
           </FormField>
           <FormField label="SMS Text">
             <TextArea
               name="text"
-              value={text || ""}
+              value={text}
               onChange={event => setText(event.target.value)}
             />
           </FormField>
@@ -81,7 +102,7 @@ export const FullForm = ({onClose}) => {
             </Button>
             <Button onClick={() => handleSubmit()} primary size="small" color="brand" type="submit">
               <Box pad="small" align="center">
-                Create New Message
+                Update Message
               </Box>
             </Button>
           </Box>

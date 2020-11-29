@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Text } from 'grommet';
-import { Modal, TextHero, Table } from '../../components'
+import { DeleteModal, EditModal, Modal, TextHero, Table } from '../../components'
 import { configureColumns, tableConfig, configureData, QUERY } from './data'
 import {
   Switch,
@@ -39,10 +39,22 @@ export const MessagesIndexScene = ({
 
   return (
     <Switch>
-      <Route path={`${path}/new`}>
+      <Route exact path={`${path}/new`}>
         <Modal 
           onClose={() => history.push(url)}
           config={{title: 'Messages'}}
+        />
+      </Route>
+      <Route path={`${path}/:id/edit`}>
+        <EditModal 
+          onClose={() => history.push(url)}
+          config={{title: 'Edit'}}
+        />
+      </Route>
+      <Route path={`${path}/:id/delete`}>
+        <DeleteModal
+          onClose={() => history.push(url)}
+          config={{title: 'Delete'}}
         />
       </Route>
       <Route exact path="/compose/messages" >
