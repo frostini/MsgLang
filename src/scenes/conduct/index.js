@@ -136,60 +136,57 @@ const SimpleTemplate = (props) => {
   return(
     <Box align="center" pad="small">
       <Heading level={2}>Create a new Campaign</Heading>
-<Box flex direction="row" align="center" justify="evenly" fill="horizontal">
-      <Box flex basis="1/2" align="center">
-      <Box pad="small">
-        <Text>Select Message</Text>
-        <Select
-          options={displayBy(messages, 'name')}
-          closeOnChange={true}
-          value={message}
-          multiple={false}
-          onChange={({value}) => setMessage(value)}
-        >
-          {option => showOption(messages, 'name', option)}
-        </Select>
-      </Box>
-      <Box pad="small">
-        <Text>Select Contact Table</Text>
-        <Select
-          options={displayBy(boards, 'name')}
-          closeOnChange={true}
-          value={value}
-          multiple={false}
-          onChange={handleSelect}
-        />
-      </Box>
-      { columns &&
-        <Box pad="small">
-          <Text>Select Phone Number Column</Text>
-          <Select
-              value={phoneColumn}
-              options={displayBy(columns, 'title')}
+      <Box flex direction="row" align="center" justify="evenly" fill="horizontal">
+        <Box flex basis="1/2" align="center">
+          <Box pad="small">
+            <Text>Select Message</Text>
+            <Select
+              options={displayBy(messages, 'name')}
               closeOnChange={true}
-              onChange={({value}) => getMessageData(value)}
+              value={message}
+              multiple={false}
+              onChange={({value}) => setMessage(value)}
+            >
+              {option => showOption(messages, 'name', option)}
+            </Select>
+          </Box>
+          <Box pad="small">
+            <Text>Select Contact Table</Text>
+            <Select
+              options={displayBy(boards, 'name')}
+              closeOnChange={true}
+              value={value}
+              multiple={false}
+              onChange={handleSelect}
             />
+          </Box>
+          { columns &&
+            <Box pad="small">
+              <Text>Select Phone Number Column</Text>
+              <Select
+                  value={phoneColumn}
+                  options={displayBy(columns, 'title')}
+                  closeOnChange={true}
+                  onChange={({value}) => getMessageData(value)}
+                />
+            </Box>
+          }
+        </Box>
+        { columns && phoneColumn && smsMessages &&
+          <Box flex basis="1/2" align="center">
+            {smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)}
+          </Box>
+        }
+      </Box>
+      { columns && phoneColumn && smsMessages &&
+        <Box pad="small" size="small">
+          <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
+            <Box pad="small" align="center">
+              Create Campaign
+            </Box>
+          </Button>
         </Box>
       }
-      </Box>
-      {
-        columns && phoneColumn && smsMessages &&
-        (<Box flex basis="1/2" align="center">
-          {
-          smsMessages.map((el, idx)=> <SimpleTemplate key={idx} {...el}/>)
-
-          }
-        </Box>)
-      }
-      </Box>
-      { columns && phoneColumn && smsMessages && <Box pad="small" size="small">
-        <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
-          <Box pad="small" align="center">
-            Create Campaign
-          </Box>
-        </Button>
-      </Box>
-      }
     </Box>
-  ) 
+  )
 }
