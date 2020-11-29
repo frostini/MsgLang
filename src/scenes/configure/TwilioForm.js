@@ -4,9 +4,6 @@ import {
   Box,
   Button,
   FormField,
-  Heading,
-  Select,
-  TextArea,
   TextInput
 } from "grommet";
 import  {useStateWithLocalStorage} from '../../utils'
@@ -14,35 +11,14 @@ import  {useStateWithLocalStorage} from '../../utils'
 export const TwilioForm = () => {
   const [submitted, setSubmitted] = useState(false)
   const [session, setSession] = useStateWithLocalStorage("twilioSession");
-
-  const testIdOnClick = () => {
-    const dataa = { from: '+16193736452', phone: '+16193736451', message: 'CORssSs MF' };
-
-    fetch('https://batch-send-1358.twil.io/welcome', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode:'cors',
-      body: JSON.stringify(dataa)
-    })
-    .then(async r => console.log(await r.json()))
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
-
-  useEffect(() => {
-    // testIdOnClick()
-  }, [])
-
-const handleSubmit = (values, { setSubmitting }) => {
+  const [initialValues, setInitialValues] = useState(
+    session ? JSON.parse(session) : { token: '', sid: '', phone: '' }
+  )
+  const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting();
     setSession(JSON.stringify(values));
   }
-  let [initialValues, setInitialValues] = useState(
-    session ? JSON.parse(session) : { token: '', sid: '', phone: '' }
-  )
+
 
 
   return (
@@ -60,10 +36,7 @@ const handleSubmit = (values, { setSubmitting }) => {
               } 
               if (!values.phone) {
                 errors.phone = "required";
-              } 
-              // else if (!values.employeeId.match(/^[0-9]+$/)) {
-              //   errors.employeeId = "numeric only";
-              // }
+              }
               return errors;
             }}
             validateOnBlur={submitted}
@@ -107,13 +80,13 @@ const handleSubmit = (values, { setSubmitting }) => {
                 </FormField>
                 <Box
                   tag="footer"
-                  margin={{ top: "medium" }}
+                  margin={{ top: "large" }}
                   direction="row"
                   justify="between"
                 >
                   <Button primary size="small" color="brand" type="submit">
                     <Box pad="small" align="center">
-                      Create New Message
+                      Update Twilio Config
                     </Box>
                   </Button>
                 </Box>
@@ -128,7 +101,7 @@ const handleSubmit = (values, { setSubmitting }) => {
 
 {
   /**
-RESPONSE OBJECT BIYOTCH
+TWILIO RESPONSE OBJECT
 {
   "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "api_version": "2010-04-01",
@@ -153,26 +126,5 @@ RESPONSE OBJECT BIYOTCH
   "to": "+15558675310",
   "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"
 }
-
-
-
-name,
-item_id
-text
-tags
-        leb={
-          <Button primary size="small" color="brand" type="submit">
-            <Box pad="small" align="center">
-              Create New Message
-            </Box>
-          </Button>
-        }
-        close={
-          <Button plain onClick={onClose}>
-            <Box pad="small" align="center" >
-              Cancel
-            </Box>
-          </Button>
-        }
    */
 }

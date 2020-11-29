@@ -26,8 +26,8 @@ export const TestForm = () => {
   )
 
   return (
-      <Box>
-        <Box width="medium" margin="medium">
+      <Box pad={{left: 'medium'}}>
+        <Box width="medium">
           <Formik
             initialValues={initialValues}
             validate={values => {
@@ -85,7 +85,7 @@ export const TestForm = () => {
                 </FormField>
                 <Box
                   tag="footer"
-                  margin={{ top: "medium" }}
+                  margin={{ top: "large" }}
                   direction="row"
                   justify="between"
                 >
