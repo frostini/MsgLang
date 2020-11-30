@@ -19,8 +19,6 @@ export const TwilioForm = () => {
     setSession(JSON.stringify(values));
   }
 
-
-
   return (
       <Box pad={{left: 'medium'}}>
         <Box width="medium">
@@ -130,3 +128,31 @@ TWILIO RESPONSE OBJECT
 }
    */
 }
+
+{
+  /**
+ name: obj['body']
+  const body = {  
+"text9": obj['sid'],
+"text": obj['to],
+"text4": obj['from],
+"text6": obj['date_created],
+"text41": obj['id']
+}
+   */
+}
+// ["name Name",
+//  "text9 MsgSID",
+//  "text To",
+//  "text4 From",
+//  "text6 Sent On",
+//  "text41 Contact Id"]
+// debugger
+// monday.api(CREATE_MSG_ITEM, {
+//   variables: {
+//     "name": name,
+//     "column_values": JSON.stringify({text})
+//   }
+// }).then((res) => {
+//   onClose()
+// })

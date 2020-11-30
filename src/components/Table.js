@@ -5,6 +5,8 @@ import { RoutedAnchor } from "../components"
 export const Table = ({ columns, data }) => (
   <Box width="large">
     <DataTable
+      fill="horizontal"
+      size="medium"
       columns={columns || []}
       data={data || []}
     />
