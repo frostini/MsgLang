@@ -43,10 +43,10 @@ export const CampaignForm = ({onClose}) => {
     })
     .then(async r => {
       const tee  = await r.json()
-      const joint = createSentMessage(smsMessages, tee.data)
-      debugger
-      onClose()
-      console.log(joint)
+    createSentMessage(smsMessages, tee.data)
+      
+    
+      // console.log(joint)
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -54,13 +54,15 @@ export const CampaignForm = ({onClose}) => {
 }
 const createSentMessage = (msgs, data) => {
   monday.setToken(TOKEN)
-  return msgs.map((msg, idx) => {
+  Promise.all(
+    msgs.map((msg, idx) => {
     const obj = {...msg, ...data[idx]}
+
     const body = {  
       "text9": obj['sid'],
       "text": obj['to'],
       "text4": obj['from'],
-      "text6": obj['date_created'],
+      "text6": obj['dateCreated'],
       "text41": obj['id']
     }
     monday.api(CREATE_MSG_ITEM, {
@@ -72,6 +74,14 @@ const createSentMessage = (msgs, data) => {
       return res
     })
   })
+).then((results) => {
+  // return results
+  onClose()
+  // response.setBody({data: results});
+  // print response for debugging purposes.
+  // console.log('Here are the results:' + results)
+  // return callback(null, response);
+})
 }
 
 

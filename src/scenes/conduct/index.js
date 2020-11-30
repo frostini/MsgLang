@@ -2,7 +2,6 @@ import React from "react";
 import { Box } from "grommet";
 import { CampaignsIndex } from './CampaignsIndex'
 import { NewCampaign } from './NewCampaign'
-// import { DeleteModal, EditModal, Modal } from '../../components'
 import {
   Switch,
   Route,
