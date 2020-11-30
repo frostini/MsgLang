@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Box, Button, Heading, Select, Text } from "grommet";
 import mondaySdk from "monday-sdk-js";
-import { configureData, MESSAGES_QUERY, CONTACT_QUERY } from '../compose/data'
+import { configureData, MESSAGES_QUERY, CONTACT_QUERY, CREATE_MSG_ITEM } from '../compose/data'
 const monday = mondaySdk();
 
 export const Conduct = () => {
@@ -10,7 +10,6 @@ export const Conduct = () => {
   const [message, setMessage] = useState("");
   const [columns, setColumns] = useState(undefined);
   const [phoneColumn, setPhoneColumn] = useState(undefined);
-  const [showButton, setShowButton] = useState(undefined);
   const [messages, setMessages] = useState([])
   const [boards, setBoards] = useState([])
   const [smsMessages, setSmsMessages] = useState([])
@@ -43,11 +42,28 @@ export const Conduct = () => {
       body: body
     })
     .then(async r => {
-      console.log(await r.json())
+      const tee  = await r.json()
+      const joint = createSentMessage(smsMessages, tee.data)
+      console.log(joint)
     })
     .catch((error) => {
         console.error('Error:', error);
     });
+}
+const createSentMessage = (msgs, data) => {
+  monday.setToken(TOKEN)
+  return msgs.map((msg, idx) => {
+    return {...msg, ...data[idx]}
+  })
+  // debugger
+  // monday.api(CREATE_MSG_ITEM, {
+  //   variables: {
+  //     "name": name,
+  //     "column_values": JSON.stringify({text})
+  //   }
+  // }).then((res) => {
+  //   onClose()
+  // })
 }
 
 const addInterpolatedMessage = (text, values) => (
@@ -181,7 +197,7 @@ const SimpleTemplate = (props) => {
       { columns && phoneColumn && smsMessages &&
         <Box pad="small" size="small">
           <Button fill={false} alignSelf="start" onClick={() => sendSmS(smsMessages)} primary  color="brand" type="submit">
-            <Box pad="small" align="center">
+            <Box pad="medium" align="center">
               Create Campaign
             </Box>
           </Button>
