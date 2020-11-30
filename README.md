@@ -14,7 +14,7 @@ Furthermore, I'd <3 and greatly welcome any/all feedback that could help to make
 
 ---
 
-### Problem MsgLang is Solving
+### Problems MsgLang is Solving
 - Integrating marketing tools with monday or other crm tools inevitably leads to added complexity (lost time/money), contact list redundancy, and zappier/integration bugs.
 - Marketing tools are expensive. MsgLang will be a low cost, high value replacement.
 - Most small/medium-sized business don't have the budget to hire marketing/engineering professionals or the bandwidth to learn and use marketing tools such as autopilot or campaign monitor.
