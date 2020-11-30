@@ -4,7 +4,7 @@
 ### Intro
 First and foremost, I wanted to thank you for the opportunity to work on this project. 
 
-*Winning a top price would literally mean the world to me* and would serve as:
+**Winning a top prize would literally mean the world to me** and would serve as:
 
 1. market validation
 2. runway to keep working on this app
