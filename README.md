@@ -15,7 +15,8 @@ Furthermore, I'd <3 and greatly welcome any/all feedback that could help to make
 ---
 
 ### Problems MsgLang is Solving
-- Integrating marketing tools with monday or other crm tools inevitably leads to added complexity (lost time/money), contact list redundancy, and zappier/integration bugs.
+- SMS marketing is a very effective marketing channel but carries high barriers of entry. Adding a simple, low-cost, seamless Monday integration can be a game changing customer magnet.
+- Integrating marketing tools with Monday or other CRM tools inevitably leads to added complexity (lost time/money), contact list redundancy, and zappier/integration bugs.
 - Marketing tools are expensive. MsgLang will be a low cost, high value replacement.
 - Most small/medium-sized business don't have the budget to hire marketing/engineering professionals or the bandwidth to learn and use marketing tools such as autopilot or campaign monitor.
 
@@ -23,13 +24,15 @@ Furthermore, I'd <3 and greatly welcome any/all feedback that could help to make
 - Message contacts on Monday Boards directly with no external tools
 - Create, Edit, and Delete SMS message templates
 - View SMS message templates with a test user
-- View Message History
+- View Messaging Campaign History
 
 ### Benefits
-I took great care to design the app in a way that:
+I took great care to create the app in a way that:
 - is fully functional within Monday as a Monday App
-- uses Monday boards as a data store to reduce dependencies
+- uses Monday boards as a data store to reduce dependencies and entire experience in Monday.
 - scalable out of the box via serverless functions
+- was inspired by Monday UI components
+- used React for UI as this is also what seems to be used by Monday
 
 ### Future (v1) Features
 - Contact widget to view messages sent, on a per-contact basis
@@ -37,7 +40,7 @@ I took great care to design the app in a way that:
 - Campaign Scheduling
 - User List/Segment Management
 - In-App phone number purchase (via Twilio API)
-- Add Twilio reseller billing 
+- Add Twilio reseller/billing support 
 
 ### Future (v2) Features
 - Email template generator
