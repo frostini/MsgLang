@@ -1,106 +1,54 @@
+# MsgLang
+## Conduct your Messaging Masterpiece with MsgLang
 
-// create an item
-mutation {
-  create_item(board_id: 865039835, group_id: "topics", item_name: "succc it") {
-    id
-    name
-    column_values {
-      title
-      text
-      value
-      id
-    }
-  }
-}
+### Intro
+First and foremost, I wanted to thank you for the opportunity to work on this project. 
 
+*Winning a top price would literally mean the world to me* and would serve as:
 
-// item_name |  String | The new item's name.
-// board_id | !Int |The board's unique identifier.
-// group_id | String  | The group's unique identifier.
-// column_values | JSON | The column values of the new item.
+1. market validation
+2. runway to keep working on this app
+3. opportunity to meet with Monday team to obtain feedback related to customer profiles, usage/access patterns, and integration best-practices.
 
-// update an item
-// mutation {
-//   change_multiple_column_values (
-//     board_id: 865039835,
-//     item_id: 868726141,
-//     column_values: "{\"status\": {\"index\": 1}}"
-//   ) {
-//     id
-//   }
-// }
+Furthermore, I'd <3 and greatly welcome any/all feedback that could help to make this product better. Please write me at marlonjfrausto@gmail.com!
 
-// delete an item (there is also delete_item)
-// mutation {
-//   archive_item (item_id: 20178755) {
-//     id
-//   }
-// }
+---
 
+### Problem MsgLang is Solving
+- Integrating marketing tools with monday or other crm tools inevitably leads to added complexity (lost time/money), contact list redundancy, and zappier/integration bugs.
+- Marketing tools are expensive. MsgLang will be a low cost, high value replacement.
+- Most small/medium-sized business don't have the budget to hire marketing/engineering professionals or the bandwidth to learn and use marketing tools such as autopilot or campaign monitor.
 
-// load an item
-// query {
-//   items(ids: [865039836]) {
-//     id
-//     name
-//     column_values {
-//       title
-//       text
-//       value
-//     }
-//   }
-// }
+### Features
+- Message contacts on Monday Boards directly with no external tools
+- Create, Edit, and Delete SMS message templates
+- View SMS message templates with a test user
+- View Message History
 
+### Benefits
+I took great care to design the app in a way that:
+- is fully functional within Monday as a Monday App
+- uses Monday boards as a data store to reduce dependencies
+- scalable out of the box via serverless functions
 
+### Future (v1) Features
+- Contact widget to view messages sent, on a per-contact basis
+- Multi-part campaigns with Sequences
+- Campaign Scheduling
+- User List/Segment Management
+- In-App phone number purchase (via Twilio API)
+- Add Twilio reseller billing 
 
+### Future (v2) Features
+- Email template generator
+- Integrate Email component to Campaign Sequences
+- Add email support billing
 
-
-Note: To run your application manually in the future: terminate the CLI command, navigate to the folder with the project (quickstart-integrations), and run "npm run start" command. If you want to run your app in debug mode, run separately in 2 different terminal windows: npm run server-with-debugger and npm run expose
-
-https://community.monday.com/t/monday-api-sdk-not-authenticated-or-graphql-validation-errors/9633/9
-
-## Overview
-This is the "Quickstart React" example Monday app. 
-<br>It can be used as a board view or dashboard widget, connected to a board and render data from the board using settings.
-
-<br>This app demonstrates how to use: 
-- [settings](https://github.com/mondaycom/monday-sdk-js#mondaygettype-params--) 
-- [context](https://github.com/mondaycom/monday-sdk-js#mondaygettype-params--) 
-- [API](https://github.com/mondaycom/monday-sdk-js#mondayapiquery-options--)
-
-<br>You can find more info in our QuickStart guide [here](https://monday.com/developers/apps/quickstart-view/)
-<br /> ![Screenshot](https://dapulse-res.cloudinary.com/image/upload/w_900/v1591485466/remote_mondaycom_static/developers/screenshots/final_view.gif)
-
-## Run the project
-
-In the project directory, you should run:
-
-### `npm install`
-
-And then to run an application with automatic virtual ngrok tunnel, run:
-
-### `npm start`
-
-Visit http://localhost:4040/status and under "command_line section" find the URL. This is the public URL of your app, so you can use it to test it.
-F.e.: https://021eb6330099.ngrok.io
-
-## Configure Monday App 
-
-1. Open monday.com, login to your account and go to a "Developers" section.
-2. Create a new "QuickStart View Example App"
-3. Open "OAuth & Permissions" section and add "boards:read" scope
-4. Open "Features" section and create a new "Boards View" feature
-5. Open "View setup" tab and fulfill in "Custom URL" field your ngrok public URL, which you got previously (f.e. https://021eb6330099.ngrok.io)
-6. Click "Boards" button and choose one of the boards with some data in it.
-7. Click "Preview button"
-8. Enjoy the Quickstart View Example app!
-
-## Release your app
-1. Run script
-### `npm run build`
-2. Zip your "./build" folder
-3. Open "Build" tab in your Feature
-4. Click "New Build" button
-5. Click "Upload" radio button and upload zip file with your build
-6. Go to any board and add your just released view
-7. Enjoy!
+### What's next
+- Code Refactoring
+- Add Test Coverage
+- Test/Enhance Device Responsiveness
+- Profile and Optimize App
+- Add Component Loading Skeletons
+- Add Scene Transitions
+- Obtain & Integrate Monday Team feedback (hopefully !)

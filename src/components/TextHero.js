@@ -19,10 +19,10 @@ export const TextHero = ({
         {subTitle}
       </Text>
     </Box>
-    <Paragraph textAlign="start" color="dark-5">
+    {/* <Paragraph textAlign="start" color="dark-5">
       <Markdown>
         {body}
       </Markdown>
-    </Paragraph>
+    </Paragraph> */}
   </Box>
 )

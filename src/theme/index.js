@@ -4,7 +4,9 @@ import { deepMerge } from "grommet/utils";
 export const theme = deepMerge(grommet, {
   global: {
     colors: {
-      active: "dark-6"
+      active: "dark-6",
+      brand: "#0085ff",
+      "dark-2": "rgba(41, 47, 76, 0.7)"
     },
     elevation: {
       light: {

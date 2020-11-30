@@ -6,7 +6,7 @@ export const Table = ({ columns, data }) => (
   <Box width="large">
     <DataTable
       // fill={true}
-      size="small"
+      size="medium"
       columns={columns || []}
       data={data || []}
     />
