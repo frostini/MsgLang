@@ -39,14 +39,14 @@ export const CampaignsIndex = () => {
   return (
     <Switch>
       <Route exact path="/conduct" >
-        <Box>
+        <Box overflow="scroll">
           <TextHero
             addNew={<ModalButton label="New Campaign" onClick={() => history.push(`${url}/new`)} />}
             title="Conduct"
             subTitle="Campaigns"
             body="This is the section where content for composing sequences will soon be."
           />
-          <Box pad="medium">
+          <Box pad="medium" overflow="scroll">
             <Table 
               columns={(columns && configureColumns(columns, historyConfig))}
               data={(items && configureHistory(items))}

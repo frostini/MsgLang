@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Heading, Tab, Tabs } from 'grommet';
 import { TwilioForm } from './TwilioForm'
 import { TestForm } from './TestForm'
-
+import { userData, twilioData} from '../../utils'
 export const Configure = () => {
 
   return (
@@ -17,13 +17,13 @@ export const Configure = () => {
         <Tab title='1. Twilio'>
           <Box pad="small">
             <Heading margin={'medium'} level={2}>Twilio Config</Heading>
-            <TwilioForm/>
+            <TwilioForm twilioData={twilioData}/>
           </Box>
         </Tab>
         <Tab title='2. Test User'>
           <Box pad="small">
             <Heading margin={'medium'} level={2}>Test User Config</Heading>
-            <TestForm/>
+            <TestForm userData={userData}/>
           </Box>
         </Tab>
       </Tabs>

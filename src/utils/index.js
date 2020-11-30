@@ -10,3 +10,15 @@ export const useStateWithLocalStorage = localStorageKey => {
  
   return [value, setValue];
 };
+
+export const userData = {
+  name: 'Marlon',
+  email: 'marlonjfrausto@gmail.com',
+  phone: '+16193736451'
+}
+
+export const twilioData = {
+  token: 'lskfjlwrkj348u934iufihwf',
+  sid: 'kjhkjehnkjhekfjeh',
+  phone: '+14158739797'
+}

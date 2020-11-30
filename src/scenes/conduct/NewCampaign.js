@@ -7,7 +7,7 @@ export const NewCampaign = ({ onClose, config }) => {
   const {title} =  config
   return ( 
     <PopUp onClickOutside={onClose} position="center" modal overflow="auto">
-      <Box flex direction="column" align="center" justify="start">
+      <Box overflow="scroll" flex direction="column" align="center" justify="start">
         <ModalHeader title={title}/>
         <MsgWizard onClose={onClose} />
       </Box>

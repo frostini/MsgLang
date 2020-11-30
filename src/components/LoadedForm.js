@@ -9,6 +9,7 @@ import {
 } from "grommet";
 import { useParams } from "react-router-dom";
 import { MESSAGE_QUERY, MESSAGE_UPDATE, configureItem } from  '../scenes/compose/data'
+import {userData} from '../utils'
 import mondaySdk from "monday-sdk-js";
 const monday = mondaySdk();
 const MUTATIONS = `
@@ -52,8 +53,8 @@ export const LoadedForm = ({onClose}) => {
     })
   }, [])
   const interpol = (text) => {
-    const userProfile = JSON.parse(localStorage.getItem("userSession"))  
-    let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
+    // const userData = JSON.parse(localStorage.getItem("userSession"))  
+    let display = text && text.replace(/\{(.*?)\}/g, m => userData[(m.substring(1, m.length-1))]);
     return display
   }
   const handleSubmit = () => {
@@ -108,7 +109,7 @@ export const LoadedForm = ({onClose}) => {
           </Box>
         </Box>
         <Box flex basis="1/2" align="center" >
-          <Box pad="medium" background="light-2" width="medium" height="medium">
+          <Box pad="medium" background="light-2" width="medium" height="small">
             <Text>{interpol(text)}</Text>
           </Box>
           <Text>Message Preview</Text>

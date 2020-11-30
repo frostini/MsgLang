@@ -170,7 +170,7 @@ const SimpleTemplate = (props) => {
 
   return(
     <Box align="center" pad="small">
-      <Box flex direction="row" align="start" justify="evenly" fill="horizontal">
+      <Box overflow="scroll"  flex direction="row" align="start" justify="evenly" fill="horizontal">
         <Box flex basis="1/2" align="center">
           <Box pad="small">
             <Text>Select Message</Text>

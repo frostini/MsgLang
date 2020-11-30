@@ -10,26 +10,26 @@ import {
   TextInput
 } from "grommet";
 import mondaySdk from "monday-sdk-js";
-import  {useStateWithLocalStorage} from '../../utils'
+// import  {useStateWithLocalStorage} from '../../utils'
 const monday = mondaySdk();
 
-export const TestForm = () => {
+export const TestForm = ({userData}) => {
   const [submitted, setSubmitted] = useState(false)
-  const [session, setSession] = useStateWithLocalStorage("userSession");
+  // const [session, setSession] = useStateWithLocalStorage("userSession");
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting();
-    setSession(JSON.stringify(values));
+    // setSession(JSON.stringify(values));
   }
-  let [initialValues, setInitialValues] = useState(
-    session ? JSON.parse(session) : { name: '', email: '', phone: '' }
-  )
+  // let [initialValues, setInitialValues] = useState(
+  //   session ? JSON.parse(session) : { name: '', email: '', phone: '' }
+  // )
 
   return (
       <Box pad={{left: 'medium'}}>
         <Box width="medium">
           <Formik
-            initialValues={initialValues}
+            initialValues={userData}
             validate={values => {
               const errors = {};
               if (!values.name) {

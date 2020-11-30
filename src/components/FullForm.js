@@ -8,6 +8,7 @@ import {
   TextInput
 } from "grommet";
 import mondaySdk from "monday-sdk-js";
+import {userData} from "../utils"
 const monday = mondaySdk();
 const MUTATIONS = `
   mutation($name: String!, $column_values: JSON!) {
@@ -35,8 +36,8 @@ export const FullForm = ({onClose}) => {
   const { REACT_APP_TOKEN: TOKEN } = process.env
 
   const interpol= (text) => {
-    const userProfile = JSON.parse(localStorage.getItem("userSession"))  
-    let display = text && text.replace(/\{(.*?)\}/g, m => userProfile[(m.substring(1, m.length-1))]);
+    // const userProfile = JSON.parse(localStorage.getItem("userSession"))  
+    let display = text && text.replace(/\{(.*?)\}/g, m => userData[(m.substring(1, m.length-1))]);
     return display
   }
   const handleSubmit = () => {
@@ -87,7 +88,7 @@ export const FullForm = ({onClose}) => {
           </Box>
         </Box>
         <Box flex basis="1/2" align="center" >
-          <Box pad="medium" background="light-2" width="medium" height="medium">
+          <Box pad="medium" background="light-2" width="medium" height="small">
             <Text>{interpol(text)}</Text>
           </Box>
           <Text>Message Preview</Text>

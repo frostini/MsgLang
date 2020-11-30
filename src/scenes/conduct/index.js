@@ -21,7 +21,7 @@ export const Conduct = () => {
           config={{title: 'Campaign'}}
         />
       </Route>
-      <Box pad="medium" fill="horizontal">
+      <Box pad="medium" fill={true} overflow="scroll">
         <CampaignsIndex />
       </Box>
     </Switch>

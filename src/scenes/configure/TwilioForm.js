@@ -6,24 +6,23 @@ import {
   FormField,
   TextInput
 } from "grommet";
-import  {useStateWithLocalStorage} from '../../utils'
 
-export const TwilioForm = () => {
+export const TwilioForm = ({twilioData}) => {
   const [submitted, setSubmitted] = useState(false)
-  const [session, setSession] = useStateWithLocalStorage("twilioSession");
-  const [initialValues, setInitialValues] = useState(
-    session ? JSON.parse(session) : { token: '', sid: '', phone: '' }
-  )
+  // const [session, setSession] = useStateWithLocalStorage("twilioSession");
+  // const [initialValues, setInitialValues] = useState(
+  //   session ? JSON.parse(session) : { token: '', sid: '', phone: '' }
+  // )
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting();
-    setSession(JSON.stringify(values));
+    // setSession(JSON.stringify(values));
   }
 
   return (
       <Box pad={{left: 'medium'}}>
         <Box width="medium">
           <Formik
-            initialValues={initialValues}
+            initialValues={twilioData}
             validate={values => {
               const errors = {};
               if (!values.token) {
